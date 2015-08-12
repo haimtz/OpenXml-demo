@@ -4,3 +4,9 @@ D:\Open xml\DemoXml\DemoXml\bin\Debug\DemoXml.exe
 D:\Open xml\DemoXml\DemoXml\bin\Debug\DemoXml.pdb
 D:\Open xml\DemoXml\DemoXml\obj\Debug\DemoXml.exe
 D:\Open xml\DemoXml\DemoXml\obj\Debug\DemoXml.pdb
+D:\Open xml\OpenXml-demo\DemoXml\bin\Debug\DemoXml.exe.config
+D:\Open xml\OpenXml-demo\DemoXml\obj\Debug\DemoXml.exe
+D:\Open xml\OpenXml-demo\DemoXml\obj\Debug\DemoXml.pdb
+D:\Open xml\OpenXml-demo\DemoXml\bin\Debug\DemoXml.exe
+D:\Open xml\OpenXml-demo\DemoXml\bin\Debug\DemoXml.pdb
+D:\Open xml\OpenXml-demo\DemoXml\obj\Debug\DemoXml.csprojResolveAssemblyReference.cache

@@ -47,7 +47,7 @@ namespace DemoXml
             return document;
         }
 
-        public void AddSheet(WorkbookPart workbookPart, string name)
+        public Worksheet AddSheet(WorkbookPart workbookPart, string name)
         {
             var sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
 
@@ -65,9 +65,11 @@ namespace DemoXml
 
             sheets.Append(sheet);
             workbookPart.Workbook.Save();
+
+            return workSheetpart.Worksheet;
         }
 
-        public void AddRow(Worksheet worksheet, bool isHeader, params string[] values)
+        public void AddRow(Worksheet worksheet, bool isHeader, params object[] values)
         {
             var row = new Row();
             var sheetData = worksheet.GetFirstChild<SheetData>();
@@ -78,16 +80,12 @@ namespace DemoXml
             
             foreach (var value in values)
             {
-                var cell = new Cell
-                {
-                    DataType = CellValues.String,
-                    CellValue = new CellValue(value),
-                    StyleIndex = (UInt32)styleIndex
-                };
+                var cell = GetCell(value, styleIndex);
                 row.AppendChild(cell);
             }
 
             sheetData.Append(row);
+            worksheet.Save();
         }
 
         private Stylesheet CreatStylesheet()
@@ -162,5 +160,21 @@ namespace DemoXml
 
             return style;
         }
+
+
+        private Cell GetCell(object value, int styleIndex)
+        {
+            var type = value.GetType().Name == "String" ? CellValues.String : CellValues.Number;
+
+            var cell = new Cell
+            {
+                DataType = type,
+                CellValue = new CellValue(value.ToString()),
+                StyleIndex = (UInt32)styleIndex
+            };
+
+            return cell;
+        }
+
     }
 }

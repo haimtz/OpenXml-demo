@@ -58,6 +58,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animal.cs" />
     <Compile Include="OpenXmlWrapper.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
