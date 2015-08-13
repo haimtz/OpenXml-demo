@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace DemoXml
 {
@@ -8,7 +9,7 @@ namespace DemoXml
         static void Main(string[] args)
         {
             Animals();
-            PhoneBook();
+            //PhoneBook();
         }
 
         public static void Animals()
@@ -31,6 +32,17 @@ namespace DemoXml
                 excel.AddRow(sheet, false, animal.Name, animal.Type, animal.Age);
             }
 
+            var sheetData = sheet.Elements<SheetData>().First();
+
+            foreach (var row in sheetData.Elements<Row>())
+            {
+                foreach (var cell in row.Elements<Cell>())
+                {
+                    cell.StyleIndex = StyleConst.CellFormat.CellFormatStyle.CELL_HEADER;
+                }
+            }
+
+            excel.SetWidth(sheet, 1, 50);
             document.Close();
 
             System.Diagnostics.Process.Start("Animals.xlsx");

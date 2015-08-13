@@ -54,6 +54,7 @@ namespace DemoXml
             // add single Sheet
             var workSheetpart = workbookPart.AddNewPart<WorksheetPart>();
             workSheetpart.Worksheet = new Worksheet(new SheetData());
+            workSheetpart.Worksheet.InsertAt(new Columns(), 0);
             workSheetpart.Worksheet.Save();
 
             var sheet = new Sheet
@@ -85,6 +86,30 @@ namespace DemoXml
             }
 
             sheetData.Append(row);
+            worksheet.Save();
+        }
+
+        public void SetWidth(Worksheet worksheet, int columnIndex, int width)
+        {
+            //worksheet.InsertAt(new Columns(), 0);
+            var columns = worksheet.Elements<Columns>().ElementAt(0);
+
+            var col1 = new Column
+            {
+                Min = 1,
+                Max = 1,
+                CustomWidth = true,
+                Width = 10,
+            };
+
+            var col2 = new Column
+            {
+                Min = 2,
+                Max = 2,
+                Width = 50,
+            };
+
+            columns.Append(col1, col2);
             worksheet.Save();
         }
 
@@ -120,8 +145,18 @@ namespace DemoXml
                        {
                            Value = PatternValues.Gray125
                        },
+                       ForegroundColor = new ForegroundColor
+                       {
+                           Rgb = "FFFF00"
+                       },
+                       BackgroundColor = new BackgroundColor
+                       {
+                           Indexed = (UInt32Value)64U,
+                           Rgb = "FFFF00"
+                       }
                    }
                }, StyleConst.FillConst.FillStyle.REGULAR);
+
             #endregion
 
             #region Border Style
@@ -156,6 +191,8 @@ namespace DemoXml
                     FillId = 0,
                     BorderId = 0
                 }, StyleConst.CellFormat.CellFormatStyle.CELL_REGULAR);
+
+            
             #endregion
 
             return style;
@@ -170,7 +207,8 @@ namespace DemoXml
             {
                 DataType = type,
                 CellValue = new CellValue(value.ToString()),
-                StyleIndex = (UInt32)styleIndex
+                StyleIndex = (UInt32)styleIndex,
+                
             };
 
             return cell;
